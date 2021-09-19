@@ -1,0 +1,107 @@
+import logo from './logo.svg';
+import './App.css';
+import WelcomeMsg from './WelcomeMsg.js'; //A6
+import {ClassMethodReact} from './WelcomeMsg.js';
+import { useState } from "react";
+import {StateClass} from './WelcomeMsg.js';
+ 
+function App() {
+  return (
+    <div className="App">
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <p>
+          Edit <code>src/App.js</code> and save to reload.
+        </p>
+        <p>This is Arsalan's React tutorial</p>
+        {/* <a
+          className="App-link"
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn React
+        </a> */}
+        <FirstComp/>
+      </header>
+      <GetInput text="Using a prop" discription="This is a prop passed through functions"/>
+      <ButtonState></ButtonState>
+      <StateClass/>
+    </div>
+  );
+}
+//A10 BELOW 
+function ButtonState(){
+  const [title, setTitle] = useState("");
+  const [count, setCount] = useState(0);
+  
+  const UpdateTitleClicked = () => {
+    setTitle("We now have a title");
+  }
+  const UpdateCounterClicked = () => {
+    setCount(count + 1);
+  }
+  return(
+    <div>
+      <p>Title: {title}</p>
+      <StateProp count = {count}/>
+      <button onClick={UpdateTitleClicked}>Update Title</button>
+      <button onClick={UpdateCounterClicked}>Update Count</button>
+    </div>
+  );
+}
+//A11
+function StateProp(props){
+  return(
+    <div>
+      <p>Count: {props.count}</p>
+    </div>
+  );
+}
+
+function FirstComp(){
+  return(
+    <div>
+      <h1>This my first Component using React</h1>
+      <p>This first component is rendered by function first_comp</p>
+    </div>
+  );
+} //A1
+
+function GetInput(props){ //A7
+  // const value = "Type here";
+  const value = props.text;
+  const propval= props.discription
+  return(
+    <form>
+      {/* <WelcomeMsg/> A9 */}
+      <WelcomeMsg/>
+      <lable for="text-form">Input here: </lable>
+      <input type="text" value={value} id="text-form"/>
+      <IfElseCond discription = {propval}/>
+    </form>
+  );
+} //A2
+
+function IfElseCond({discription}){ //A8
+  const condition = true;
+  if (!condition){
+    return(
+      <div>
+        <ClassMethodReact title="Class based prop"/>
+        <p>The if condition is working</p>
+        <p>{discription}</p>
+      </div>
+    );
+  }
+  else{
+    return(
+      <div>
+        <ClassMethodReact/>
+        <p>The else condition is working</p>
+        <p>{discription}</p>
+      </div>
+    );
+  }
+}//A5
+export default App;

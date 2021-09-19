@@ -1,0 +1,247 @@
+react is a js lib, which has a basic working units called components,
+a page is split into components, the component tree can be made as,
+                            App (Twitter)
+            Nav-Bar  Profile  Trends  Feed
+                                      Tweet
+                                      Like  
+
+
+A react component is a JS class with state i.e. data and a render method,
+ex, class Tweet {
+        state  = {};
+        render() {
+
+        }
+    }
+The render method returns a JS object aka React Element, which is essentially 
+a virtual DOM Element in the memory, any state change in the virtual DOM or component 
+will be compared with the actual DOM currently running on the browser and only that 
+particular part of the whole DOM will be updated,
+
+React is named because it "reacts" to the state change of the virtual DOM to the actual
+DOM, 
+
+1) Setting up the developement enviroment:
+    Install Node js and NPM, $sudo apt install nodejs npm
+        nodejs --version , npm --version
+    sudo npm i -g create-react-app@1.5.2 (Basic command to get react)
+    Simple React Snipet (Burk Holland), Prettier (Esban Petterson) , these to extensions for vs code,
+        --> in settings of vs code , user setting, "editor.formatOnSave": true,
+     
+2) Start a react app, 
+    in terminal, npx create-react-app react-app , this allows the create-react-app , a developement enviroment, to 
+    create the basic requriements for a react project, it includes the download of,
+        developement server, webpack for bundling the files, babel for compiling js files and etc
+
+    commands:
+    1)npm start : Starts developement server
+    2)npm run build : Bundles the app into static files for production
+    3)npm test : Starts the test runner
+
+    response of npx create-react-app inventory 
+                    ``Success! Created inventory at /home/developer-53/Desktop/Arsalan/coding/inventory
+                Inside that directory, you can run several commands:
+
+                npm start
+                    Starts the development server.
+
+                npm run build
+                    Bundles the app into static files for production.
+
+                npm test
+                    Starts the test runner.
+
+                npm run eject
+                    Removes this tool and copies build dependencies, configuration files
+                    and scripts into the app directory. If you do this, you can’t go back!
+
+                We suggest that you begin by typing:
+
+                cd inventory
+                npm start
+
+                Happy hacking!``
+
+
+go to react-app, $ npm start, to start the dev server on port 3000,
+this returns 
+        Local:            http://localhost:3000
+  On Your Network:  http://192.168.1.104:3000 (for any other device on the Network)
+
+
+
+Goto src/app.js and change a p tag and save , this file reloads the server on change
+
+React developer tools, inspect in chrome, if the chrome react extension is their youll
+see components, profiler to measure performance,
+
+The file structure:
+1) public/index.html, is the main file that injects react into the page, 
+    the <div id="root> on line 31 is critical as this is the point where react is injected
+    so anything that we want react to control goes in here, 
+2) favicon.ico is the react icon we see on the web icon, for custom icon replace the file with same name
+3) logo 192 and 512 can be removed by commenting the <link tag on line 12 of index.html
+    the href with PUBLIC_URL is refered to the public folder 
+4) public/manifest.json , change name of project and other details can be changed here
+    and to change the icons will be refered here too,
+
+5) public/robots.txt, for crawler and scrappers
+
+6) src folder has source code where we work, all js/css or any other relevent files of the project must go in
+the src folder, so that webpack can collect them,
+    index.js and app.js are important,
+
+    index.js imports necesary dependencies but the main magic is in the ReactDOM.render method where <App /> refers
+    to the react componenets we build and the next line document.getElementById('root') injects it in the <App/> in the 
+    index.html file in the public folder,
+    The <React.StrictMode> allows better debbuging in the development env by showing errors on the console
+    and this can be removed when in production
+
+    App.js this is the component that is is injected, the function App(){}
+    has the componets and can be editted, this function returns the JSX that is rendered in the index.html, 
+
+    App.css and index.css is the css file for global css, 
+    App.test.js is for automated testing, 
+    setupTest.js is for setting up automated testing,
+
+    Package.json defines all the dependencies, scripts and we can add more scripts and dependencies in it,
+    .gitignore file does as it should,
+    
+7) Node Modules: All dependencies existing possible, but the dependencies needed for the app are in the Package.json file,
+    if we delete the node modules folder we can still get the dependencies by "npm install", it will install all dependencies by 
+    getting them from Package.json and creates a file for record "Package.lock.json"
+
+8)webpack and bable: Webpack is an Opensource JS bundler, primarily for js but can transform other front end assets like HTML, CSS & images if the required loaders 
+are included, it will create a single js file for a browser.
+Babel : An open source transcompiler that converts 2015+ ES6 script code to backwards compatiable versions of JS that can be run by older JS engines
+
+
+
+components and JSX:
+-->components can be reused if created by others. 
+    but componenets can be created as functions and classes, how to create a component,
+    done at A1
+--> A2 shows an input tag being used
+--> A3 is being rendered inside A2
+--> {/* comment here */} comment in jsx
+--> an 'if' condition in jsx is show in A4 where any constant value can be used as {dec_cons} and the if condition
+    can be tested as {var_or_cond_to_check ? var_to_show_if_cond_is_true : var_to_show_if_cond_is_false},
+    for a 'not' we use !var_or_cond_to_check, {2+5} is an example of any operation can takeplace within the {} that is related to js
+-->A5 shows that jsx is rendered inside the return statement, and if else work in the function first
+
+Class based function and importing modules
+--> create a new file in the src folder as WelcomeMsg.js and place the code of WelcomeMsg in it
+--> placing "export default function WelcomeMsg ()" in the WelcomeMsg.js file will make it a default exported 
+    function of the file incase of multiple functions being exported from a single file, 
+--> in the main App.js file import it as import WelcomMsg from './WelcomeMsg.js'; , A6
+--> if the function being imported is not default place it in {}
+--> class in react is similar to function just the syntax is longer,
+    import React from "react";
+    class WelcomeMsg extends React.Components{
+        render (){
+            const name = "Arsalan";
+            const condition = true;
+            return(
+                <div>
+                    <h1>{condition ? name : "Unknown User"}</h1> {/*A4*/}
+                    Welcome to React
+                </div>
+                );
+            }
+        }
+    export default WelcomeMsg
+
+-->Using Props: Props are like arguments passed to a componenets, A7
+    props become a js object like 
+    {
+        key : value,
+        key : value
+    }
+    to render this props we use <p>{props.key}</p>
+    A props key word can be deconstructed to specific required props //A8
+    
+    props.key are read only , the cant be reassigned inside the calling function
+    but when {key} is passed to the function these can be reassigned as these are not js objects 
+    but copies in seprate variables
+
+    Default values can be assigned to keys while passing through the function as 
+    function fname{key=some_default_value} or another way is by creating a property under the function calling the props as 
+
+    function Function_name(props){
+        return (
+            <p> {props.x} </p>
+            <p> {props.y} </p>
+        );
+    } 
+
+    Function_name.defaultProps={
+        x: default_value,
+        y: default_value
+    }
+
+--> Using props in class are done at A9
+
+--> prop types can be defined under the component 
+
+    import {PropTypes} from "prop-types";
+    componenet_name.propType = {    componenet_name.propType = {
+        key : PropTypes.number,
+    };
+
+
+
+States are used for storing client data objects, 
+we created a component ButtonState and using "Hook" we'll use state
+by importing {useState} from "react"; ,In the component we'll place the useState() in the 
+componenet A10. 
+
+Passing states amoung components, we use props with componets to pass states,
+the A11 shows it,
+
+States in class based components: , in the constructor place this.state as a js object,
+with key value pairs, creating a function in a class based component requires it to bind it to the class using the this keyword
+so for that we can do 2 things ,
+--> in the class StateClass inside the constructor we can define,
+    this.buttonPressed = this.buttonPressed.bind(this);
+--> Or we can use the arrow function on the onclick , 
+    <button onClick = {()=>this.buttonPressed()}> , A12
+
+
+
+For form and events,
+--> i'll create a new app.js file and keep previous one as backup
+--> create SearchBar.js as a module (component)
+    , SearchBar.js has a form and button (type submit refreshes the page while button doesnt as its use for onclick)
+
+    We'll use states to retain the data entered
+    const [brand, setBrand] = useState("");
+    <input id="brand-field" type = "text" value ={brand}/>
+    But this wont work , in cases of states we need to use onChange
+
+    To change the value of const set state we'll use onChange= {(e)=>setBrand(e.target.value)}
+
+    To see the values we created a function searchButtonPressed and console logged all values and called it on click of the button
+
+    Now using props we can export these values through modules (child to parent), props are non modifable so we use callback functions,
+    a callback function will be used to 
+
+    So the flow is , 
+        "function SearchBar (props)" , has the data being saved in props from onclick
+        using "const searchButtonPressed = () =>" , 
+        In the main App.js the "<SearchBar callback = {updateData}/>" uses the function of main App function to parse the props to App 
+        as const updateData = (searchParams) => {
+               setData(searchParams);
+                }
+
+        which is in last used by const [data, setData] = useState({}); in App function to display data finaly,
+        A13
+
+
+
+    We now update the workflow , we add a filter field as well and named it data while previous was renamed to filters, in
+    the file Additems.js and add a clear the field after submit functionality to it A14,
+    
+    To display the saved data we create a new component , itemsDisplay.js,
+    the map function allows to run a particular function for each iteration to run and it has to have a return with it,
+    
+    
