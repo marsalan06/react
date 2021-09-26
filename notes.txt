@@ -245,3 +245,11 @@ For form and events,
     the map function allows to run a particular function for each iteration to run and it has to have a return with it,
     
     
+    Styling the application:
+    global style sheet , in index.js it imports index.css, we can work on index.css all componenets and main app can access them,
+    
+
+Filtering data, we'll use the approach to pass the already filtered data to the itemsDisplay function rather than filter the data after being sent to render,we created a 
+filter method that filters out default values and those that dont match, 
+ const filterData = (data) =>{
+
