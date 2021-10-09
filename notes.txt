@@ -251,5 +251,17 @@ For form and events,
 
 Filtering data, we'll use the approach to pass the already filtered data to the itemsDisplay function rather than filter the data after being sent to render,we created a 
 filter method that filters out default values and those that dont match, 
- const filterData = (data) =>{
+const filterData = (data) =>{
+
+To create a database so that we dont loose the data after clossing the site, An API makes the data flow back and forth, we use a JSON Sever, 
+instal npm install -g json-server, 
+
+In the app make a file db.json, with json key value pairs, to run the server, json-server db.json, but make sure to stop the react server first so db server takes 3000 port while
+react server will ask you to run on a diffrent port,
+in app.js's addItemToData we place the fetch method (default GET request) to comunicate with the db.json (B1),
+when i add an item it performs a 200 status get request, 
+to specify the request type create a object in the code to specify the request type B2, and pass it to the fetch request, but because we manually set the id it creates an error, so we 
+reset the data base (empty it) and restart the db server, 
+
+to get the id from the fetch operation fetch("http://localhost:3000/items",requestOptions); we place .then () ahead of it to carry out further operation, 
 

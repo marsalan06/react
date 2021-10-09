@@ -17,11 +17,29 @@ function App(){
 
  const addItemToData = (item) =>{ 
    let items = data['items'];
-   item.id = items.length;
-   items.push(item);
-   setData({items:items});
-   console.log(data); 
- }
+  //  item.id = items.length; //json server will figure the id itself 
+   
+  const requestOptions = {
+     method : "POST",
+     headers : {
+       "Content-Type" : "application/json",
+     },
+     body : JSON.stringify(item),
+   }; //B2
+
+   fetch("http://localhost:3000/items",requestOptions)
+   .then((response)=>response.json())
+   .then((data)=> {
+     console.log(data)
+     items.push(data);
+     setData({items:items})}
+     );
+   }
+   // to connect to the already running db server B1
+   
+//    items.push(item);
+//    setData({items:items});
+//  }
 
  const filterData = (data) =>{
    const filteredData = [];

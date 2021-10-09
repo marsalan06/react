@@ -1,0 +1,11 @@
+{
+  "items": [
+    {
+      "name": "Tesla",
+      "price": "25000",
+      "type": "Car",
+      "brand": "TS",
+      "id": 1
+    }
+  ]
+}
